@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+   <!-- <context>元素用于指定生成一组对象的环境。例如指定要连接的数据库，要生成对象的类型和要处理的数据库中的表。运行MBG的时候还可以指定要运行的<context>-->
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <!--plugin指定插件-->
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+            <!-- caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true -->
+            <property name="caseSensitive" value="true"/>
+        </plugin>
+        <!--<jdbcConnection>用于指定数据库连接信息，该元素必选，并且只能有一个。-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/demo"
+                        userId="root"
+                        password="123456">
+        </jdbcConnection>
+        <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
+          NUMERIC 类型解析为java.math.BigDecimal -->
+        <!--<javaTypeResolver>-->
+            <!--<property name="forceBigDecimals" value="false" />-->
+        <!--</javaTypeResolver>-->
+        <!--生成实体类-->
+        <javaModelGenerator targetPackage="pojo" targetProject=".\src\main\java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <!--<property name="enableSubPackages" value="false" />-->
+            <!--&lt;!&ndash; 从数据库返回的值被清理前后的空格 &ndash;&gt;-->
+            <!--<property name="trimStrings" value="true" />-->
+        </javaModelGenerator>
+        <!--生成mapper文件-->
+        <sqlMapGenerator targetPackage="mapper"  targetProject=".\src\main\resources"/>
+        <!--生成Mapper接口-->
+        <javaClientGenerator targetPackage="mapper" targetProject=".\src\main\java" type="XMLMAPPER" >
+            <!--&lt;!&ndash; enableSubPackages:是否让schema作为包的后缀 &ndash;&gt;-->
+            <!--<property name="enableSubPackages" value="false" />-->
+        </javaClientGenerator>
+        <!--该元素至少要配置一个，可以配置多个。只有配置的才会生成实体类和其他文件。该元素有一个必选属性：tableName：指定要生成的表名，可以使用SQL通配符匹配多个表。例如要生成全部的表，可以按如下配置-->
+        <table tableName="ta" >
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        </table>
+    </context>
+</generatorConfiguration>
